@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact — Zugzwang</title>
+  <meta name="description" content="Get in touch with Zugzwang.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="board"></div>
+    <div class="glow"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="reveal d1">
+      <a href="../" class="wordmark" aria-label="Zugzwang home">Zugzwang</a>
+      <nav class="nav">
+        <a href="../services/" class="nav-link">Services</a>
+        <a href="../products/" class="nav-link">Products</a>
+        <a href="../updates/" class="nav-link">Updates</a>
+        <a href="./" class="nav-link" aria-current="page">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <form class="contact-form reveal d2" id="contact-form" novalidate>
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="cf-phone">Phone <span class="optional">Optional</span></label>
+          <input id="cf-phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="field field-wide">
+          <label for="cf-message">Message <span class="optional" id="cf-count">0 / 500</span></label>
+          <textarea id="cf-message" name="message" rows="4" maxlength="500" required></textarea>
+        </div>
+        <!-- Spam trap: hidden from people, filled in by bots. -->
+        <input class="trap" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="form-foot field-wide">
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+          <button class="send" type="submit">Send <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+
+      <div class="form-done" id="cf-done" hidden>
+        <p class="form-done-title">Message sent.</p>
+        <p class="form-done-sub">Thanks for reaching out. We’ll be in touch.</p>
+      </div>
+    </main>
+
+    <footer class="reveal d5">
+      <span>© <span id="year">2026</span> Zugzwang</span>
+      <span>All rights reserved</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      // Where submissions go. Paste a form-service URL here (e.g. a Formspree
+      // endpoint like https://formspree.io/f/xxxxxxx) to send in-page.
+      // Left empty, Send opens a pre-filled email to TO_EMAIL instead.
+      var ENDPOINT = '';
+      var TO_EMAIL = 'hello@zugzwg.com';
+
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('cf-status');
+      var done = document.getElementById('cf-done');
+      var message = form.elements.message;
+      var count = document.getElementById('cf-count');
+
+      message.addEventListener('input', function () {
+        count.textContent = message.value.length + ' / 500';
+      });
+
+      form.addEventListener('input', function (e) {
+        e.target.closest('.field') && e.target.closest('.field').classList.remove('invalid');
+      });
+
+      function validate() {
+        var firstBad = null;
+        ['name', 'email', 'message'].forEach(function (n) {
+          var el = form.elements[n];
+          var ok = el.value.trim() && (n !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+          el.closest('.field').classList.toggle('invalid', !ok);
+          if (!ok && !firstBad) firstBad = el;
+        });
+        if (firstBad) {
+          status.textContent = firstBad.name === 'email' && firstBad.value.trim()
+            ? 'Please enter a valid email.' : 'Please fill in your name, email and message.';
+          firstBad.focus();
+          return false;
+        }
+        return true;
+      }
+
+      function finish() {
+        form.hidden = true;
+        done.hidden = false;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.textContent = '';
+        if (form.elements._gotcha.value) return finish();
+        if (!validate()) return;
+
+        var data = {
+          name: form.elements.name.value.trim(),
+          email: form.elements.email.value.trim(),
+          phone: form.elements.phone.value.trim(),
+          message: message.value.trim()
+        };
+
+        if (!ENDPOINT) {
+          var body = data.message + '\n\n' + data.name + '\n' + data.email + (data.phone ? '\n' + data.phone : '');
+          window.location.href = 'mailto:' + TO_EMAIL +
+            '?subject=' + encodeURIComponent('Message from ' + data.name) +
+            '&body=' + encodeURIComponent(body);
+          return;
+        }
+
+        var button = form.querySelector('.send');
+        button.disabled = true;
+        status.textContent = 'Sending…';
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(function (res) {
+          if (!res.ok) throw new Error(res.status);
+          finish();
+        }).catch(function () {
+          button.disabled = false;
+          status.textContent = 'Something went wrong. Please email ' + TO_EMAIL + '.';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

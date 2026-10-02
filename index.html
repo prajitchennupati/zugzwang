@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Zugzwang</title>
+  <meta name="description" content="Zugzwang — when there are no good moves, but you have to move.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="board"></div>
+    <div class="glow"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="reveal d1">
+      <a href="/" class="wordmark" aria-label="Zugzwang home">Zugzwang</a>
+      <nav class="nav">
+        <a href="services/" class="nav-link">Services</a>
+        <a href="products/" class="nav-link">Products</a>
+        <a href="updates/" class="nav-link">Updates</a>
+        <a href="contact/" class="nav-link">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <section class="definition" aria-labelledby="term">
+          <div class="eyebrow reveal d2">
+            <span>/ˈtsuːk.tsvaŋ/</span>
+            <span>noun</span>
+            <span>German · chess</span>
+          </div>
+
+          <h1 id="term" class="reveal d3">Zugzwang</h1>
+
+          <p class="meaning reveal d4">
+            When there are no good moves &mdash; <em>but you have to move.</em>
+          </p>
+          <p class="gloss reveal d4">From <i>Zug</i> “move” + <i>Zwang</i> “compulsion.”</p>
+        </section>
+
+        <aside class="zz reveal d5" aria-label="Interactive zugzwang positions">
+          <div class="zz-head">
+            <p class="zz-title" id="zz-name" aria-live="polite"></p>
+            <span class="zz-count" id="zz-count"></span>
+          </div>
+          <div class="zz-stage">
+            <button class="zz-arrow" id="zz-prev" type="button" aria-label="Previous position">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>
+            </button>
+            <div class="zz-board" id="zz-board" role="group">
+              <div class="zz-squares"></div>
+              <div class="zz-pieces"></div>
+            </div>
+            <button class="zz-arrow" id="zz-next" type="button" aria-label="Next position">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+            </button>
+          </div>
+          <div class="zz-foot">
+            <p id="zz-status" aria-live="polite"></p>
+            <div class="zz-actions">
+              <button id="zz-reset" class="pill" type="button">Reset</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="reveal d5">
+      <span>© <span id="year">2026</span> Zugzwang</span>
+      <span>All rights reserved</span>
+    </footer>
+  </div>
+
+  <script src="engine.js" defer></script>
+  <script src="board.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

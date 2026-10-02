@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ouroboros — Zugzwang</title>
+  <meta name="description" content="Ouroboros finds the loops that make recovery impossible.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="board"></div>
+    <div class="glow"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="reveal d1">
+      <a href="../" class="wordmark" aria-label="Zugzwang home">Zugzwang</a>
+      <nav class="nav">
+        <a href="./" class="nav-link" aria-current="page">Services</a>
+        <a href="../products/" class="nav-link">Products</a>
+        <a href="../updates/" class="nav-link">Updates</a>
+        <a href="../contact/" class="nav-link">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="article">
+        <a href="./" class="back-link reveal d2">← All services</a>
+
+        <h1 class="page-title reveal d2">Ouroboros</h1>
+
+        <div class="prose reveal d3">
+          <p>Ouroboros finds the loops that make recovery impossible. It maps what each critical service needs in order to come back, then shows where that chain circles back on itself, like a restore that depends on the identity provider that just went down. For every loop it finds, it computes the cheapest fix, such as an out-of-band path, a break-glass credential, or a second copy. You learn you can’t recover before the outage tells you.</p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="reveal d5">
+      <span>© <span id="year">2026</span> Zugzwang</span>
+      <span>All rights reserved</span>
+    </footer>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Services — Zugzwang</title>
+  <meta name="description" content="Services from Zugzwang.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="board"></div>
+    <div class="glow"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="reveal d1">
+      <a href="../" class="wordmark" aria-label="Zugzwang home">Zugzwang</a>
+      <nav class="nav">
+        <a href="./" class="nav-link" aria-current="page">Services</a>
+        <a href="../products/" class="nav-link">Products</a>
+        <a href="../updates/" class="nav-link">Updates</a>
+        <a href="../contact/" class="nav-link">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="updates">
+        <h1 class="page-title reveal d2">Services</h1>
+
+        <ul class="post-list reveal d3">
+          <li>
+            <a class="post-link" href="ouroboros.html">
+              <span class="post-meta">01</span>
+              <div>
+                <h2>Ouroboros</h2>
+                <p>Ouroboros finds the loops that make recovery impossible.</p>
+              </div>
+              <span class="post-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="post-link" href="understudy.html">
+              <span class="post-meta">02</span>
+              <div>
+                <h2>Understudy</h2>
+                <p>Understudy checks whether your failover would actually work, not whether it’s configured.</p>
+              </div>
+              <span class="post-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="post-link" href="firebreak.html">
+              <span class="post-meta">03</span>
+              <div>
+                <h2>Firebreak</h2>
+                <p>Firebreak turns breach response from guesswork into a plan.</p>
+              </div>
+              <span class="post-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="post-link" href="rubicon.html">
+              <span class="post-meta">04</span>
+              <div>
+                <h2>Rubicon</h2>
+                <p>Rubicon orders risky changes so you never cross a point of no return by accident.</p>
+              </div>
+              <span class="post-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="reveal d5">
+      <span>© <span id="year">2026</span> Zugzwang</span>
+      <span>All rights reserved</span>
+    </footer>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
